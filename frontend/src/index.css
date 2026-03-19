@@ -1,0 +1,638 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap');
+
+:root {
+  --pink-light:   #ffd6e7;
+  --pink-mid:     #ffb3d1;
+  --pink-dark:    #ff69b4;
+  --pink-deep:    #e91e8c;
+  --pink-border:  #f48fb1;
+  --pink-shadow:  #ad1457;
+  --purple-light: #e8d5ff;
+  --purple-mid:   #ce93d8;
+  --purple-dark:  #9c27b0;
+  --white-panel:  #fff0f7;
+  --holo-1: #f9c6e0;
+  --holo-2: #e8c6ff;
+  --holo-3: #c6d8ff;
+  --holo-4: #ffc6f0;
+}
+
+* { image-rendering: pixelated; }
+
+body {
+  font-family: 'VT323', monospace;
+  min-height: 100vh;
+  color: #3d0026;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Holographic background ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 0% 0%,   #f9c6e0 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 0%,  #d4b0ff 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%,#b0c4ff 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 100%,  #ffb0e8 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%,  #e8c6ff 0%, transparent 60%);
+  background-color: #f0d6ff;
+  animation: holoShift 8s ease-in-out infinite alternate;
+  z-index: -2;
+}
+
+/* ── Holographic shimmer overlay ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255,255,255,0.08) 10%,
+    transparent 20%,
+    rgba(255,182,255,0.06) 30%,
+    transparent 40%,
+    rgba(182,182,255,0.06) 50%,
+    transparent 60%,
+    rgba(255,255,255,0.08) 70%,
+    transparent 80%
+  );
+  animation: holoShimmer 4s linear infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes holoShift {
+  0%   { filter: hue-rotate(0deg) brightness(1); }
+  33%  { filter: hue-rotate(15deg) brightness(1.05); }
+  66%  { filter: hue-rotate(-10deg) brightness(0.98); }
+  100% { filter: hue-rotate(20deg) brightness(1.03); }
+}
+
+@keyframes holoShimmer {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 200% 200%; }
+}
+
+/* ── Pink Windows 95 Panel ── */
+.win95-panel {
+  background: #fff0f7;
+  border-top:    2px solid #ffb3d1;
+  border-left:   2px solid #ffb3d1;
+  border-right:  2px solid #ad1457;
+  border-bottom: 2px solid #ad1457;
+  color: #3d0026;
+}
+
+.win95-panel-inset {
+  background: #ffe4f0;
+  border-top:    2px solid #ad1457;
+  border-left:   2px solid #ad1457;
+  border-right:  2px solid #ffb3d1;
+  border-bottom: 2px solid #ffb3d1;
+}
+
+/* ── Pink Title Bar ── */
+.win95-titlebar {
+  background: linear-gradient(to right, #e91e8c, #ff69b4, #ce93d8);
+  color: white;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+
+.win95-titlebar-btn {
+  background: #ffb3d1;
+  border-top:    1px solid #ffd6e7;
+  border-left:   1px solid #ffd6e7;
+  border-right:  1px solid #ad1457;
+  border-bottom: 1px solid #ad1457;
+  width: 14px;
+  height: 14px;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #3d0026;
+  font-family: 'VT323', monospace;
+  line-height: 1;
+}
+
+.win95-titlebar-btn:active {
+  border-top:    1px solid #ad1457;
+  border-left:   1px solid #ad1457;
+  border-right:  1px solid #ffd6e7;
+  border-bottom: 1px solid #ffd6e7;
+}
+
+/* ── Pink Pixel Buttons ── */
+.pixel-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  background: #ffb3d1;
+  border-top:    2px solid #ffd6e7;
+  border-left:   2px solid #ffd6e7;
+  border-right:  2px solid #ad1457;
+  border-bottom: 2px solid #ad1457;
+  color: #3d0026;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: none;
+}
+
+.pixel-btn:active {
+  border-top:    2px solid #ad1457;
+  border-left:   2px solid #ad1457;
+  border-right:  2px solid #ffd6e7;
+  border-bottom: 2px solid #ffd6e7;
+  transform: translate(1px, 1px);
+}
+
+.pixel-btn-primary {
+  background: linear-gradient(135deg, #ff69b4, #e91e8c);
+  color: #fff;
+  border-top:    2px solid #ffb3d1;
+  border-left:   2px solid #ffb3d1;
+  border-right:  2px solid #880e4f;
+  border-bottom: 2px solid #880e4f;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+}
+
+.pixel-btn-purple {
+  background: linear-gradient(135deg, #ce93d8, #9c27b0);
+  color: #fff;
+  border-top:    2px solid #e8d5ff;
+  border-left:   2px solid #e8d5ff;
+  border-right:  2px solid #4a0072;
+  border-bottom: 2px solid #4a0072;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+}
+
+.pixel-btn-yellow {
+  background: linear-gradient(135deg, #ffd6e7, #ffb3d1);
+  color: #880e4f;
+  border-top:    2px solid #ffffff;
+  border-left:   2px solid #ffffff;
+  border-right:  2px solid #ad1457;
+  border-bottom: 2px solid #ad1457;
+}
+
+.pixel-btn-green {
+  background: linear-gradient(135deg, #b9f6ca, #69f0ae);
+  color: #1b5e20;
+  border-top:    2px solid #ffffff;
+  border-left:   2px solid #ffffff;
+  border-right:  2px solid #2e7d32;
+  border-bottom: 2px solid #2e7d32;
+}
+
+/* ── Workout Cards ── */
+.workout-card-pixel {
+  background: #fff0f7;
+  border-top:    3px solid #ffd6e7;
+  border-left:   3px solid #ffd6e7;
+  border-right:  3px solid #ad1457;
+  border-bottom: 3px solid #ad1457;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: none;
+}
+
+.workout-card-pixel:active {
+  border-top:    3px solid #ad1457;
+  border-left:   3px solid #ad1457;
+  border-right:  3px solid #ffd6e7;
+  border-bottom: 3px solid #ffd6e7;
+  transform: translate(2px, 2px);
+}
+
+/* ── Progress Bar ── */
+.pixel-progress {
+  background: #ffe4f0;
+  border-top:    2px solid #ad1457;
+  border-left:   2px solid #ad1457;
+  border-right:  2px solid #ffd6e7;
+  border-bottom: 2px solid #ffd6e7;
+  height: 20px;
+  overflow: hidden;
+}
+
+.pixel-progress-fill {
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #e91e8c 0px,  #e91e8c 8px,
+    #ff69b4 8px,  #ff69b4 16px
+  );
+  transition: width 0.5s steps(10);
+}
+
+/* ── Input ── */
+.pixel-input {
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  background: #fff0f7;
+  border-top:    2px solid #ad1457;
+  border-left:   2px solid #ad1457;
+  border-right:  2px solid #ffd6e7;
+  border-bottom: 2px solid #ffd6e7;
+  color: #3d0026;
+  padding: 4px 8px;
+  outline: none;
+  width: 100%;
+}
+
+.pixel-input:focus {
+  outline: 2px dotted #e91e8c;
+  outline-offset: -2px;
+}
+
+/* ── Taskbar ── */
+.taskbar {
+  background: #ffb3d1;
+  border-top: 2px solid #ffd6e7;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  gap: 4px;
+}
+
+.taskbar-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  background: #ffb3d1;
+  border-top:    2px solid #ffd6e7;
+  border-left:   2px solid #ffd6e7;
+  border-right:  2px solid #ad1457;
+  border-bottom: 2px solid #ad1457;
+  padding: 4px 6px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: #3d0026;
+  flex: 1;
+  justify-content: center;
+}
+
+.taskbar-btn.active {
+  border-top:    2px solid #ad1457;
+  border-left:   2px solid #ad1457;
+  border-right:  2px solid #ffd6e7;
+  border-bottom: 2px solid #ffd6e7;
+  background: #ffd6e7;
+}
+
+/* ── Quote sidebar ── */
+.quote-sidebar {
+  writing-mode: vertical-rl;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: rgba(173, 20, 87, 0.35);
+  letter-spacing: 3px;
+  user-select: none;
+  line-height: 2;
+}
+
+/* ── Animations ── */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.3); }
+}
+.heartbeat { animation: heartbeat 0.8s ease-in-out infinite; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.blink { animation: blink 1s step-end infinite; }
+
+@keyframes pixelIn {
+  0%   { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.pixel-enter { animation: pixelIn 0.2s steps(4) forwards; }
+
+@keyframes floatHeart {
+  0%   { transform: translateY(0) rotate(-10deg); opacity: 0.6; }
+  50%  { transform: translateY(-10px) rotate(10deg); opacity: 1; }
+  100% { transform: translateY(0) rotate(-10deg); opacity: 0.6; }
+}
+.float-heart { animation: floatHeart 3s ease-in-out infinite; }
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50%       { opacity: 1; transform: scale(1); }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 16px; }
+::-webkit-scrollbar-track { background: #ffd6e7; }
+::-webkit-scrollbar-thumb {
+  background: #ffb3d1;
+  border-top:    2px solid #ffd6e7;
+  border-left:   2px solid #ffd6e7;
+  border-right:  2px solid #ad1457;
+  border-bottom: 2px solid #ad1457;
+}
+
+* { image-rendering: pixelated; }
+
+body {
+  font-family: 'VT323', monospace;
+  background-color: #7b2cbf;
+  background-image:
+    radial-gradient(circle at 20% 20%, #9d4edd 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, #5a189a 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, #6a0dad 0%, transparent 60%);
+  min-height: 100vh;
+  color: #fff;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 40%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 40% 10%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 60%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 25%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 75%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 85%, white 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 45%, white 0%, transparent 100%),
+    radial-gradient(2px 2px at 33% 70%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(2px 2px at 66% 33%, rgba(255,255,255,0.6) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+  animation: twinkle 4s infinite alternate;
+}
+
+@keyframes twinkle {
+  0%   { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.win95-panel {
+  background: #c0c0c0;
+  border-top:    2px solid #ffffff;
+  border-left:   2px solid #ffffff;
+  border-right:  2px solid #808080;
+  border-bottom: 2px solid #808080;
+  color: #000;
+}
+
+.win95-panel-inset {
+  background: #c0c0c0;
+  border-top:    2px solid #808080;
+  border-left:   2px solid #808080;
+  border-right:  2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+.win95-titlebar {
+  background: linear-gradient(to right, #000080, #1084d0);
+  color: white;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.win95-titlebar-btn {
+  background: #c0c0c0;
+  border-top:    1px solid #ffffff;
+  border-left:   1px solid #ffffff;
+  border-right:  1px solid #808080;
+  border-bottom: 1px solid #808080;
+  width: 14px;
+  height: 14px;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #000;
+  font-family: 'VT323', monospace;
+  line-height: 1;
+}
+
+.pixel-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  background: #c0c0c0;
+  border-top:    2px solid #ffffff;
+  border-left:   2px solid #ffffff;
+  border-right:  2px solid #808080;
+  border-bottom: 2px solid #808080;
+  color: #000;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pixel-btn:active {
+  border-top:    2px solid #808080;
+  border-left:   2px solid #808080;
+  border-right:  2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  transform: translate(1px, 1px);
+}
+
+.pixel-btn-primary {
+  background: linear-gradient(135deg, #9d4edd, #6a0dad);
+  color: #fff;
+  border-top:    2px solid #c77dff;
+  border-left:   2px solid #c77dff;
+  border-right:  2px solid #3c096c;
+  border-bottom: 2px solid #3c096c;
+}
+
+.pixel-btn-pink {
+  background: linear-gradient(135deg, #ff69b4, #c2185b);
+  color: #fff;
+  border-top:    2px solid #ffb6c1;
+  border-left:   2px solid #ffb6c1;
+  border-right:  2px solid #880e4f;
+  border-bottom: 2px solid #880e4f;
+}
+
+.pixel-btn-yellow {
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  color: #000;
+  border-top:    2px solid #ffec6e;
+  border-left:   2px solid #ffec6e;
+  border-right:  2px solid #8b5e00;
+  border-bottom: 2px solid #8b5e00;
+}
+
+.pixel-btn-green {
+  background: linear-gradient(135deg, #00e676, #00897b);
+  color: #000;
+  border-top:    2px solid #69f0ae;
+  border-left:   2px solid #69f0ae;
+  border-right:  2px solid #004d40;
+  border-bottom: 2px solid #004d40;
+}
+
+.workout-card-pixel {
+  background: #c0c0c0;
+  border-top:    3px solid #ffffff;
+  border-left:   3px solid #ffffff;
+  border-right:  3px solid #808080;
+  border-bottom: 3px solid #808080;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.workout-card-pixel:active {
+  border-top:    3px solid #808080;
+  border-left:   3px solid #808080;
+  border-right:  3px solid #ffffff;
+  border-bottom: 3px solid #ffffff;
+  transform: translate(2px, 2px);
+}
+
+.pixel-progress {
+  background: #808080;
+  border-top:    2px solid #404040;
+  border-left:   2px solid #404040;
+  border-right:  2px solid #c0c0c0;
+  border-bottom: 2px solid #c0c0c0;
+  height: 20px;
+  overflow: hidden;
+}
+
+.pixel-progress-fill {
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #000080 0px, #000080 8px,
+    #1084d0 8px, #1084d0 16px
+  );
+  transition: width 0.5s steps(10);
+}
+
+.pixel-input {
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  background: white;
+  border-top:    2px solid #808080;
+  border-left:   2px solid #808080;
+  border-right:  2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  color: #000;
+  padding: 4px 8px;
+  outline: none;
+  width: 100%;
+}
+
+.pixel-input:focus {
+  outline: 2px dotted #000080;
+  outline-offset: -2px;
+}
+
+.taskbar {
+  background: #c0c0c0;
+  border-top: 2px solid #ffffff;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  gap: 4px;
+}
+
+.taskbar-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  background: #c0c0c0;
+  border-top:    2px solid #ffffff;
+  border-left:   2px solid #ffffff;
+  border-right:  2px solid #808080;
+  border-bottom: 2px solid #808080;
+  padding: 4px 8px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: #000;
+  flex: 1;
+  justify-content: center;
+}
+
+.taskbar-btn.active {
+  border-top:    2px solid #808080;
+  border-left:   2px solid #808080;
+  border-right:  2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+.quote-sidebar {
+  writing-mode: vertical-rl;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: rgba(255, 214, 255, 0.4);
+  letter-spacing: 3px;
+  user-select: none;
+  line-height: 2;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.3); }
+}
+.heartbeat { animation: heartbeat 0.8s ease-in-out infinite; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.blink { animation: blink 1s step-end infinite; }
+
+@keyframes pixelIn {
+  0%   { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.pixel-enter { animation: pixelIn 0.2s steps(4) forwards; }
+
+@keyframes floatCloud {
+  0%   { transform: translateX(-150px); }
+  100% { transform: translateX(110vw); }
+}
+
+::-webkit-scrollbar { width: 16px; }
+::-webkit-scrollbar-track { background: #c0c0c0; }
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-top:    2px solid #ffffff;
+  border-left:   2px solid #ffffff;
+  border-right:  2px solid #808080;
+  border-bottom: 2px solid #808080;
+}
